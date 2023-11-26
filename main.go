@@ -11,8 +11,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
     nodeName := os.Getenv("NODE_NAME")
 
     fmt.Fprintf(w, "<h1>ВКР Теплова Д.Ю</h1>")
-    fmt.Fprintf(w, "<p>Имя пода: %s</p>", podName)
-    fmt.Fprintf(w, "<p>Имя ноды: %s</p>", nodeName)
+    fmt.Fprintf(w, "<p>Имя контейнера: %s</p>", podName)
+    fmt.Fprintf(w, "<p>Имя сервера: %s</p>", nodeName)
 }
 
 func main() {
