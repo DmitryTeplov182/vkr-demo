@@ -4,10 +4,6 @@ FROM golang:1.18 AS builder
 # Установка рабочей директории внутри контейнера
 WORKDIR /app
 
-# Копирование go.mod и go.sum для управления зависимостями
-COPY go.mod go.sum ./
-RUN go mod download
-
 # Копирование исходного кода приложения в контейнер
 COPY . .
 
