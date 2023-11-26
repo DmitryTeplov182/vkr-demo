@@ -9,3 +9,63 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vkr-ingress2
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - synergy.qapeclix2.fun
+    secretName: vkr2-tls
+  rules:
+  - host: synergy.qapeclix2.fun
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vkr-service
+            port:
+              number: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vkr-deployment
+  labels:
+    app: vkr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vkr
+  template:
+    metadata:
+      labels:
+        app: vkr
+    spec:
+      containers:
+      - name: vkr
+        image: dteplov/vkr-demo:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
