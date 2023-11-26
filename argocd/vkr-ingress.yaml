@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vkr-ingress
+  name: vkr-ingress2
   annotations:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -9,7 +9,7 @@ spec:
   tls:
   - hosts:
     - synergy.qapeclix2.fun
-    secretName: vkr-tls
+    secretName: vkr2-tls
   rules:
   - host: synergy.qapeclix2.fun
     http:
